@@ -41,6 +41,10 @@ __END__
 
 Device::TMP102 - I2C interface to TMP102 temperature sensor
 
+=head1 DESCRIPTION
+
+See Device::Temperature::TMP102 for more information.
+
 =head1 VERSION
 
 =head1 ATTRIBUTES
