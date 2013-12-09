@@ -106,11 +106,13 @@ The fix was to install the package libi2c-dev.
 
 =head1 SEE ALSO
 
-  https://www.sparkfun.com/products/9418
+  https://www.sparkfun.com/products/11931
 
   https://www.sparkfun.com/datasheets/Sensors/Temperature/tmp102.pdf
 
   http://donalmorrissey.blogspot.com/2012/09/raspberry-pi-i2c-tutorial.html
+
+  https://github.com/sparkfun/Digital_Temperature_Sensor_Breakout_-_TMP102
 
 =head1 SOURCE
 
