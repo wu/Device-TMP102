@@ -126,7 +126,7 @@ connected. The default value is 0x48.
 
     $self->getTemp()
 
-Returns the current temperature, in degrees celsius.
+Returns the current temperature, in degrees Celsius.
 
 =head2 convertTemp()
 
