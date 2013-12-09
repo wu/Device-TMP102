@@ -31,7 +31,10 @@ sub getTemp {
     # by default, but you never know)
     $self->writeByte( TEMP_REG );
 
-    my $results = $self->readWordData( 0x00 );
+    # Read from this I2C address, R/*W Set
+    $self->writeByte( TMP_RD );
+
+    my $results = $self->readWordData( TEMP_REG );
 
     return $self->convertTemp( $results );
 }
