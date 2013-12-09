@@ -126,17 +126,13 @@ connected. The default value is 0x48.
 
     $self->getTemp()
 
-Returns the current temperature, in degrees celcius.
+Returns the current temperature, in degrees celsius.
 
 =head2 convertTemp()
 
     $self->convertTemp( $reading )
 
 Given a value read from the TMP102, convert the value to degrees
-Celcius.
-
-=head1 AUTHOR
-
-Alex White <VVu at cpan dott org>
+Celsius.
 
 =cut
