@@ -116,8 +116,6 @@ The fix was to install the package libi2c-dev.
 
 With code and comments taken from example code for the ATmega328:
 
-  https://www.sparkfun.com/products/11931
-
   http://www.sparkfun.com/datasheets/Sensors/Temperature/tmp102.zip
 
   /*
