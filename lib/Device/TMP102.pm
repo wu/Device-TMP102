@@ -16,7 +16,7 @@ has 'I2CBusDevicePath' => ( is => 'ro', );
 
 has Temperature => (
     is         => 'ro',
-    isa        => 'Device::Temperature::PCA9685',
+    isa        => 'Device::Temperature::TMP102',
     lazy_build => 1,
 );
 
@@ -51,7 +51,7 @@ See L<Device::Temperature::TMP102> for more information.
 
 =head2 I2CBusDevicePath
 
-this is the device file path for your I2CBus that the PCA9685 is connected on e.g. /dev/i2c-1
+this is the device file path for your I2CBus that the TMP102 is connected on e.g. /dev/i2c-1
 This must be provided during object creation.
 
 =head2 Temperature
