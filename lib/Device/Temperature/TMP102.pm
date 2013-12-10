@@ -90,19 +90,44 @@ Device::Temperature::TMP102 - I2C interface to TMP102 temperature sensor using D
 
 Read temperature for a TMP102 temperature sensor over I2C.
 
-This library correctly handles temperatures below freezing (0°C).
+This library correctly handles temperatures below freezing (0 degrees Celsius).
 
 =head1 TROUBLESHOOTING
 
+Check for your device using the i2cdetect command, e.g.:
+
+  $ i2cdetect -y 1
+
+       0  1  2  3  4  5  6  7  8  9  a  b  c  d  e  f
+  00:          -- -- -- -- -- -- -- -- -- -- -- -- --
+  10: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+  20: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+  30: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+  40: -- -- -- -- -- -- -- -- 48 -- -- -- -- -- -- --
+  50: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+  60: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+  70: -- -- -- -- -- -- -- --
+
+This indicates my TMP102 chip address is 0x48 on i2cbus 1.
+
+Use the command-line tool i2cget to try to get a 12-bit reading from
+the device, e.g.:
+
+  $ i2cget -y 1 0x48 0x00 w
+  0x2003
+
 Refer to the documentation on L<Device::SMBus> for information on
-enabling the i2c driver and finding the addresses of your i2c devices.
+enabling the i2c driver.
+
+I also found this page to be helpful:
+
+  http://donalmorrissey.blogspot.co.uk/2012/09/raspberry-pi-i2c-tutorial.html
 
 In the process of testing this on raspberry pi, I saw this error:
 
   perl: symbol lookup error: .../Device/SMBus/SMBus.so: undefined symbol: i2c_smbus_write_byte
 
 The fix was to install the package libi2c-dev.
-
 
 =head1 SEE ALSO
 
@@ -122,19 +147,19 @@ With code and comments taken from example code for the ATmega328:
 
   /*
     TMP Test Code
-	5-31-10
+    5-31-10
     Copyright Spark Fun Electronics© 2010
     Nathan Seidle
 
-	Example code for the TMP102 11-bit I2C temperature sensor
+    Example code for the TMP102 11-bit I2C temperature sensor
 
-	You will need to connect the ADR0 pin to one of four places. This
-	code assumes ADR0 is tied to VCC.  This results in an I2C address
-	of 0x93 for read, and 0x92 for write.
+    You will need to connect the ADR0 pin to one of four places. This
+    code assumes ADR0 is tied to VCC.  This results in an I2C address
+    of 0x93 for read, and 0x92 for write.
 
-	This code assumes regular 12 bit readings. If you want the
-	extended mode for higher temperatures, the code will have to be
-	modified slightly.
+    This code assumes regular 12 bit readings. If you want the
+    extended mode for higher temperatures, the code will have to be
+    modified slightly.
 
   */
 
@@ -162,4 +187,39 @@ Returns the current temperature, in degrees Celsius.
 Given a value read from the TMP102, convert the value to degrees
 Celsius.
 
-=cut
+=head1 LICENSE
+
+This software is Copyright (c) 2013 by Alex White.
+
+This is free software, licensed under:
+
+  The (three-clause) BSD License
+
+The BSD License
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are
+met:
+
+  * Redistributions of source code must retain the above copyright
+    notice, this list of conditions and the following disclaimer.
+
+  * Redistributions in binary form must reproduce the above copyright
+    notice, this list of conditions and the following disclaimer in the
+    documentation and/or other materials provided with the distribution.
+
+  * Neither the name of Alex White nor the names of its
+    contributors may be used to endorse or promote products derived from
+    this software without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS
+IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED
+TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR
+CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
