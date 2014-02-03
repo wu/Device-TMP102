@@ -5,15 +5,27 @@ use Moose;
 
 extends 'Device::SMBus';
 
-use constant {
-    TMP_RD    => 0x93,
-    TMP_WR    => 0x92,
-    TEMP_REG  => 0x00,
-};
-
 has '+I2CDeviceAddress' => (
     is      => 'ro',
     default => 0x48,
+);
+
+has 'TMP_RD' => (
+    is => 'ro',
+    isa => 'Num',
+    default => 0x93,
+);
+
+has 'TMP_RW' => (
+    is => 'ro',
+    isa => 'Num',
+    default => 0x92,
+);
+
+has 'TMP_REG' => (
+    is => 'ro',
+    isa => 'Num',
+    default => 0x72,
 );
 
 has debug => (
@@ -24,17 +36,13 @@ has debug => (
 sub getTemp {
     my ( $self ) = @_;
 
-    # We want to write a value to the TMP
-    $self->writeByte( TMP_WR );
+    my $results = $self->readWordData( $self->TEMP_REG );
 
-    # Set pointer regster to temperature register (it's already there
-    # by default, but you never know)
-    $self->writeByte( TEMP_REG );
+    unless ( $results ) {
+        die( "ERROR: failed to get temperature reading" );
+    }
 
-    # Read from this I2C address, R/*W Set
-    $self->writeByte( TMP_RD );
-
-    return $self->convertTemp( $self->readWordData( TEMP_REG ) );
+    return $self->convertTemp( $results );
 }
 
 sub convertTemp {
@@ -72,6 +80,20 @@ sub convertTemp {
     $temp = $temp / 16;
 
     return $temp;
+}
+
+sub _set_pointer_register {
+    my ( $self ) = @_;
+
+    # We want to write a value to the TMP
+    $self->writeByte( $self->TMP_WR );
+
+    # Set pointer regster to temperature register (it's already there
+    # by default, but you never know)
+    $self->writeByte( $self->TEMP_REG );
+
+    # Read from this I2C address, R/*W Set
+    $self->writeByte( $self->TMP_RD );
 }
 
 __PACKAGE__->meta->make_immutable;
