@@ -86,6 +86,21 @@ __END__
 
 Device::Temperature::TMP102 - I2C interface to TMP102 temperature sensor using Device::SMBus
 
+=head1 SYNOPSIS
+
+  use Device::Temperature::TMP102;
+
+  my $device = shift @ARGV || '/dev/i2c-1';
+
+  my $dev = Device::Temperature::TMP102->new( I2CBusDevicePath => $device );
+
+  my $temp = $dev->getTemp();
+
+  print "Temp:\n";
+  printf ( "\t%2.2f C\n", $temp );
+  printf ( "\t%2.2f F\n", $temp * 1.8 + 32 );
+
+
 =head1 DESCRIPTION
 
 Read temperature for a TMP102 temperature sensor over I2C.
@@ -94,7 +109,7 @@ This library correctly handles temperatures below freezing (0 degrees Celsius).
 
 =head1 TROUBLESHOOTING
 
-Check for your device using the i2cdetect command, e.g.:
+Check for your device on i2cbus 1 using the i2cdetect command, e.g.:
 
   $ i2cdetect -y 1
 
