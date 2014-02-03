@@ -36,7 +36,7 @@ has debug => (
 sub getTemp {
     my ( $self ) = @_;
 
-    my $results = $self->readWordData( $self->TEMP_REG );
+    my $results = $self->readWordData( $self->TMP_REG );
 
     unless ( $results ) {
         die( "ERROR: failed to get temperature reading" );
@@ -86,14 +86,16 @@ sub _set_pointer_register {
     my ( $self ) = @_;
 
     # We want to write a value to the TMP
-    $self->writeByte( $self->TMP_WR );
+    $self->writeByte( $self->TMP_RW );
 
     # Set pointer regster to temperature register (it's already there
     # by default, but you never know)
-    $self->writeByte( $self->TEMP_REG );
+    $self->writeByte( $self->TMP_REG );
 
     # Read from this I2C address, R/*W Set
     $self->writeByte( $self->TMP_RD );
+
+    return 1;
 }
 
 __PACKAGE__->meta->make_immutable;
