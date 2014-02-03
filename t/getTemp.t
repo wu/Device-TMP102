@@ -18,7 +18,7 @@ BEGIN {
 
 use Device::Temperature::TMP102;
 
-ok( my $dev = Device::Temperature::TMP102->new(),
+ok( my $dev = Device::Temperature::TMP102->new( I2CBusDevicePath => '/dev/i2c-1' ),
     "Creating a new Device::Temperature::TMP102 object"
 );
 
@@ -33,3 +33,5 @@ ok( $temp >= -25,
 ok( $temp <= 85,
     "Checking that temperature reading is below maximum sensor reading"
 );
+
+done_testing;

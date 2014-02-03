@@ -17,10 +17,13 @@ BEGIN {
 
 use Device::Temperature::TMP102;
 
-ok( my $dev = Device::Temperature::TMP102->new(),
+ok( my $dev = Device::Temperature::TMP102->new( I2CBusDevicePath => '/dev/i2c-1' ),
     "Creating a new Device::Temperature::TMP102 object"
 );
 
 ok( $dev->_set_pointer_register(),
     "Calling _set_pointer_register()"
 );
+
+done_testing;
+
