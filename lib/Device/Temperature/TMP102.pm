@@ -189,7 +189,7 @@ Celsius.
 
 =head1 LICENSE
 
-This software is Copyright (c) 2013 by Alex White.
+This software is Copyright (c) 2014 by Alex White.
 
 This is free software, licensed under:
 
