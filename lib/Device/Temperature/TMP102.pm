@@ -157,7 +157,7 @@ With code and comments taken from example code for the ATmega328:
   /*
     TMP Test Code
     5-31-10
-    Copyright Spark Fun Electronics© 2010
+    Copyright Spark Fun Electronics 2010
     Nathan Seidle
 
     Example code for the TMP102 11-bit I2C temperature sensor
